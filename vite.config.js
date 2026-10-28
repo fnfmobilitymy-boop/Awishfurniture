@@ -1,2 +1,3 @@
 import {defineConfig} from 'vite';
-export default defineConfig({base:'./',build:{assetsInlineLimit:4096,chunkSizeWarningLimit:1800}});
+import {SITE_PATH} from './src/seo.js';
+export default defineConfig({base:SITE_PATH,build:{assetsInlineLimit:4096,chunkSizeWarningLimit:1800}});

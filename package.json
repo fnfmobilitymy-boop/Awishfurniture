@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview --host 0.0.0.0",
     "demo": "npm run build && node scripts/standalone.mjs",
     "test": "npm run demo && node tests/check.mjs",
-    "pages": "npm run build && node scripts/prepare-pages.mjs"
+    "pages": "npm run build && node scripts/prepare-pages.mjs",
+    "build:client": "vite build"
   },
   "dependencies": {
     "@fontsource/anton": "^5.3.0",

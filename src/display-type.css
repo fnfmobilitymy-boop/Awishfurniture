@@ -53,3 +53,23 @@
  .global-mars .lightbox-copy h3{font-size:18px}
  .global-mars.lang-zh .lightbox-copy h3{font-size:15px}
 }
+/* Crawlable locale URLs retain the original compact switch styling. */
+.language-switch a{font-size:10px;padding:10px 0;opacity:.55;border-bottom:1px solid transparent;transition:opacity .25s,border-color .25s}
+.language-switch a.active{opacity:1;border-color:var(--brand-red)}
+.language-switch a:hover{opacity:1}
+/* Static HTML remains fully readable if JavaScript is unavailable. */
+html.no-js .intro,html.no-js .page-progress,html.no-js .case-deck-watermark,html.no-js .case-scroll-hint{display:none!important}
+html.no-js [data-reveal]{opacity:1!important;visibility:visible!important;transform:none!important}
+html.no-js .portal{height:auto}
+html.no-js .portal-sticky{position:relative;height:85vh}
+html.no-js .portal-image{clip-path:none}
+html.no-js .portal-title{display:none}
+html.no-js .portal-end{opacity:1;transform:none}
+html.no-js .sculpture{height:auto}
+html.no-js .sculpture-sticky{position:relative;height:90vh;min-height:650px}
+html.no-js .case-story{height:auto;padding:45px 6%}
+html.no-js .case-sticky{position:relative;height:auto;min-height:0;overflow:visible}
+html.no-js .fan-rail{position:relative;inset:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px;width:auto;transform:none!important}
+html.no-js .fan-card{position:relative;left:auto;top:auto;width:auto;transform:none!important}
+html.no-js .fan-card .case-photo{height:300px}
+@media(max-width:700px){html.no-js .fan-rail{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}html.no-js .fan-card .case-photo{height:190px}}

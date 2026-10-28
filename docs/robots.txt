@@ -1,0 +1,5 @@
+# Project-site copy. Only robots.txt at the host root controls crawling.
+User-agent: *
+Allow: /
+
+Sitemap: https://fnfmobilitymy-boop.github.io/Awishfurniture/sitemap.xml
