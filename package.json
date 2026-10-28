@@ -1,0 +1,29 @@
+{
+  "name": "awish-furniture",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "demo": "npm run build && node scripts/standalone.mjs",
+    "test": "npm run demo && node tests/check.mjs",
+    "pages": "npm run build && node scripts/prepare-pages.mjs"
+  },
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.3.0",
+    "@fontsource/italiana": "^5.3.0",
+    "@vitejs/plugin-react": "latest",
+    "gsap": "latest",
+    "lenis": "latest",
+    "lucide-react": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "three": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@playwright/test": "latest"
+  }
+}
