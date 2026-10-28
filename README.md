@@ -54,3 +54,7 @@ The form prepares a WhatsApp message. The visitor explicitly opens WhatsApp and 
 The static HTML includes an English title and description, canonical URL, Open Graph metadata and a Twitter large-image card. `public/social-preview-en.jpg` is a 1200 × 630 English homepage export with the logo and imagery; its URL is absolute and public so no JavaScript is needed to discover or fetch it. Share metadata stays English while the on-page language can change.
 
 To regenerate the share cover after a visual change, run `npm run build && node scripts/create-social-preview.mjs`, then build again to include the refreshed JPEG. Messaging platforms may cache an existing card; an already-sent preview is not under the site's control.
+
+## Scroll-controlled sofa film
+
+The Hero uses the client-provided `kling_20261028_VIDEO_Create_an__4934_0.mp4` as a 121-frame, 12 fps WebP sequence in `src/assets/sofa-motion/`. `ScrollSofa.jsx` draws frames according to scroll progress, supports reverse scrolling, bounds concurrent downloads to four, pauses rendering off screen, and uses the first still for reduced motion and loading fallback. The kitchen webpage recording is only a motion reference and is not published. The film is labeled a visual concept, not an actual completed restoration. All other page sections retain the restored design.
