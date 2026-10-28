@@ -1,0 +1,13 @@
+import p1 from './assets/cases/project-01.jpg';
+import p2 from './assets/cases/project-02.jpg';
+import p3 from './assets/cases/project-03.jpg';
+import p4 from './assets/cases/project-04.jpg';
+import p6 from './assets/cases/project-06.jpg';
+import p9 from './assets/cases/project-09.jpg';
+import p16 from './assets/cases/project-16.jpg';
+import p17 from './assets/cases/project-17.jpg';
+import p25 from './assets/cases/project-25.jpg';
+import p27 from './assets/cases/project-27.jpg';
+import p35 from './assets/cases/project-35.jpg';
+import p40 from './assets/cases/project-40.jpg';
+export const casePhotos=[p1,p2,p3,p4,p6,p9,p16,p17,p25,p27,p35,p40].map((image,i)=>({id:i,image,category:i<8?1:i<10?2:3}));

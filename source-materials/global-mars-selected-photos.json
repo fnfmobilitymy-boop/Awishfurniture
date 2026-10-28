@@ -1,0 +1,110 @@
+[
+  {
+    "name": "photo_1_2026-10-28_15-41-53.jpg",
+    "label": "1",
+    "width": 940,
+    "height": 788,
+    "sha256": "f71850cd17e44146d14597f232a3e6547cfa9e4c59a5c2db2412a70108494d03",
+    "projectFile": "src/assets/cases/project-01.jpg",
+    "source": "User uploaded iloveimg-compressed.zip; original before/after composite preserved without retouching."
+  },
+  {
+    "name": "photo_2_2026-10-28_15-41-53.jpg",
+    "label": "2",
+    "width": 1024,
+    "height": 1024,
+    "sha256": "6c877ffc95a33503ccd54783c3ff28b85261fed84b6a6c8eeb75f0d9fbe264d6",
+    "projectFile": "src/assets/cases/project-02.jpg",
+    "source": "User uploaded iloveimg-compressed.zip; original before/after composite preserved without retouching."
+  },
+  {
+    "name": "photo_3_2026-10-28_15-41-53.jpg",
+    "label": "3",
+    "width": 940,
+    "height": 788,
+    "sha256": "ce44ecbb7efa7f8be7e3961f83f3462d31976ab5e7ed746408d142ecad102e31",
+    "projectFile": "src/assets/cases/project-03.jpg",
+    "source": "User uploaded iloveimg-compressed.zip; original before/after composite preserved without retouching."
+  },
+  {
+    "name": "photo_4_2026-10-28_15-41-53.jpg",
+    "label": "4",
+    "width": 940,
+    "height": 788,
+    "sha256": "098060fb58b3f9c1b28d44dd1449bc136b7528020f1e6f208017890253c6a6ce",
+    "projectFile": "src/assets/cases/project-04.jpg",
+    "source": "User uploaded iloveimg-compressed.zip; original before/after composite preserved without retouching."
+  },
+  {
+    "name": "photo_6_2026-10-28_15-41-53.jpg",
+    "label": "6",
+    "width": 1024,
+    "height": 1024,
+    "sha256": "cfffc032ada9aa1b340a078ed85b7d42f16c733eed9cdb0b9990a114d5d81936",
+    "projectFile": "src/assets/cases/project-06.jpg",
+    "source": "User uploaded iloveimg-compressed.zip; original before/after composite preserved without retouching."
+  },
+  {
+    "name": "photo_9_2026-10-28_15-41-53.jpg",
+    "label": "9",
+    "width": 418,
+    "height": 350,
+    "sha256": "4e8f809b72b42dad6fba49ad8e7129cc36b65530eaefb979212e374b06d2f1d5",
+    "projectFile": "src/assets/cases/project-09.jpg",
+    "source": "User uploaded iloveimg-compressed.zip; original before/after composite preserved without retouching."
+  },
+  {
+    "name": "photo_16_2026-10-28_15-41-53.jpg",
+    "label": "16",
+    "width": 940,
+    "height": 788,
+    "sha256": "1ce7d523dfc89992adc0adb0094e2a62ae8596ccbae97d4f24783d5dcf70cfb9",
+    "projectFile": "src/assets/cases/project-16.jpg",
+    "source": "User uploaded iloveimg-compressed.zip; original before/after composite preserved without retouching."
+  },
+  {
+    "name": "photo_17_2026-10-28_15-41-53.jpg",
+    "label": "17",
+    "width": 940,
+    "height": 788,
+    "sha256": "695dd985aa8506678e69b5b38acf0592fc9db383b4e36adc25285d6249a7257d",
+    "projectFile": "src/assets/cases/project-17.jpg",
+    "source": "User uploaded iloveimg-compressed.zip; original before/after composite preserved without retouching."
+  },
+  {
+    "name": "photo_25_2026-10-28_15-41-53.jpg",
+    "label": "25",
+    "width": 1024,
+    "height": 1024,
+    "sha256": "8ad988036ed6311794d015e1a9ed307caad6a063185e78a53786c210aab18809",
+    "projectFile": "src/assets/cases/project-25.jpg",
+    "source": "User uploaded iloveimg-compressed.zip; original before/after composite preserved without retouching."
+  },
+  {
+    "name": "photo_27_2026-10-28_15-41-53.jpg",
+    "label": "27",
+    "width": 940,
+    "height": 788,
+    "sha256": "a59ff24ba5de491eca3182562996370a0a2213be69cc7b6db02fc2bb5d29c068",
+    "projectFile": "src/assets/cases/project-27.jpg",
+    "source": "User uploaded iloveimg-compressed.zip; original before/after composite preserved without retouching."
+  },
+  {
+    "name": "photo_35_2026-10-28_15-41-53.jpg",
+    "label": "35",
+    "width": 418,
+    "height": 350,
+    "sha256": "f73ea5aa74149252e0cc4e25cc73427ca5540fb252e9e684704247ea6a02cbfb",
+    "projectFile": "src/assets/cases/project-35.jpg",
+    "source": "User uploaded iloveimg-compressed.zip; original before/after composite preserved without retouching."
+  },
+  {
+    "name": "photo_40_2026-10-28_15-41-53.jpg",
+    "label": "40",
+    "width": 418,
+    "height": 350,
+    "sha256": "ba49a9333edba16e1a83f460ba65ba4f60ba93ce548c222b29d417e95cb0e5d8",
+    "projectFile": "src/assets/cases/project-40.jpg",
+    "source": "User uploaded iloveimg-compressed.zip; original before/after composite preserved without retouching."
+  }
+]

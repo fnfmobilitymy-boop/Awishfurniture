@@ -19,11 +19,11 @@ try{
  await page.evaluate(async()=>{const target=document.querySelector('#services').offsetTop;await new Promise(resolve=>{const start=performance.now(),duration=13000;function tick(t){const p=Math.min((t-start)/duration,1);window.scrollTo({top:target*p,behavior:'instant'});if(p<1)requestAnimationFrame(tick);else resolve()}requestAnimationFrame(tick)})});
  await page.waitForTimeout(1500);
  await page.locator('#cases').scrollIntoViewIfNeeded();await page.waitForTimeout(1300);
- await page.getByRole('button',{name:'放大查看：藏在细节里的用心。',exact:true}).click();await page.waitForTimeout(1600);await page.keyboard.press('Escape');
- await page.getByRole('button',{name:'聊聊你的沙发',exact:true}).click();await page.waitForTimeout(1800);
+ await page.locator('.more-cases .case-photo').first().click();await page.waitForTimeout(1600);await page.keyboard.press('Escape');
+ await page.getByRole('button',{name:'聊聊你的家具',exact:true}).click();await page.waitForTimeout(1800);
  await cdp.send('Page.stopScreencast');await Promise.all(writes);
  let concat='';for(let i=0;i<frames.length;i++){concat+=`file '${frames[i].name}'\n`;if(i<frames.length-1)concat+=`duration ${Math.min(.5,Math.max(1/60,frames[i+1].time-frames[i].time))}\n`}
  await writeFile(folder+'/frames.txt',concat);await mkdir('demo',{recursive:true});
- const result=spawnSync('ffmpeg',['-y','-loglevel','error','-f','concat','-safe','0','-i',folder+'/frames.txt','-vf','fps=24','-c:v','libx264','-preset','fast','-crf','23','-pix_fmt','yuv420p','-movflags','+faststart','demo/kilang-walkthrough.mp4'],{encoding:'utf8'});
- if(result.status!==0)throw Error(result.stderr);console.log('Saved walkthrough:',frames.length,'frames, demo/kilang-walkthrough.mp4');
+ const result=spawnSync('ffmpeg',['-y','-loglevel','error','-f','concat','-safe','0','-i',folder+'/frames.txt','-vf','fps=24','-c:v','libx264','-preset','fast','-crf','23','-pix_fmt','yuv420p','-movflags','+faststart','demo/global-mars-walkthrough.mp4'],{encoding:'utf8'});
+ if(result.status!==0)throw Error(result.stderr);console.log('Saved walkthrough:',frames.length,'frames, demo/global-mars-walkthrough.mp4');
 }finally{await browser?.close();server.close()}

@@ -1,2 +1,2 @@
 import {defineConfig} from 'vite';
-export default defineConfig({base:'./',build:{assetsInlineLimit:Infinity,chunkSizeWarningLimit:1800}});
+export default defineConfig({base:'./',build:{assetsInlineLimit:4096,chunkSizeWarningLimit:1800}});

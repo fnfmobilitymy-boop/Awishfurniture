@@ -1,43 +1,46 @@
-# Kilang Repair Sofa — service website concept
+# GLOBAL MARS — Furniture Restoration
 
-A service-focused revision of the earlier furniture demo. The visual direction retains cinematic room imagery, an expanding craft scene, smooth scrolling, and an interactive 3D sofa. The website provides enquiry-topic filtering, preparation guidance, a gallery with filters and lightbox, FAQs, and an enquiry form with local photo previews.
+A trilingual (Bahasa Melayu, English, Chinese) furniture-restoration website deployed to GitHub Pages. The company identity, address and contacts were supplied directly by the user. The site covers furniture restoration and hotel, restaurant and office furniture projects.
 
-## Open the demo
+## Development and verification
 
-Open `demo/kilang-repair-sofa-demo.html` in a normal current browser that permits local HTML. The file embeds all demo assets and needs no server. WebGL is needed for the interactive model.
-
-`demo/awish-demo.html` retains the earlier retail concept for reference. The active source, production build, and latest demo are the sofa-service version.
-
-## Run and validate
-
-Use the existing `/workspace/Awishfurniture` checkout; cloud tasks are already isolated, so do not create Git worktrees unless explicitly requested. Node.js 24 is installed.
+Use the existing checkout at `/workspace/Awishfurniture`; cloud tasks are already isolated, so do not create a Git worktree unless explicitly requested. Node.js 24 is installed.
 
 ```sh
 npm ci --no-audit --no-fund
 npm run dev -- --port 3000
-npm run demo
 npm test
 ```
 
-The build produces `dist/` for static hosting plus the bundled HTML demo. Tests use the installed `/usr/bin/chromium` and their own temporary local server. They exercise desktop/mobile filtering, enquiry guidance and form, photo preview/removal, scroll-driven storytelling, FAQs, gallery lightbox, overflow, Escape, runtime errors, and the standalone demo with subresource requests blocked. The managed browser blocks `file://`; the bundled HTML is therefore tested over HTTP with no external asset requests.
+The browser checks use `/usr/bin/chromium` and a temporary server under the actual `/Awishfurniture/` Pages subpath. They verify complete translation coverage, original-photo integrity and uniqueness, visible pointer-driven water refraction, company logo and contacts, four project sectors, project-card scrolling, filters/lightbox, local photo previews, prepared WhatsApp enquiries, all three mobile layouts, reduced motion and the offline bundle. Tests never send WhatsApp messages.
 
-## Real media replacement
+## Deployment
 
-- Put the opening video at `src/assets/hero.mp4` or `hero.webm`. The application detects it and uses it as a muted, inline, looping hero with the room image as a poster. Before adding a long video, prepare a web-optimized version and test mobile loading.
-- Replace the locally imported scene and gallery imagery in `src/main.jsx` and `src/assets/`. Keep originals outside the source bundle, preserve accurate captions, and identify real project photos by their source and context.
-- Update the gallery's `galleryItems` only after receiving actual project media. The current pictures are generated concept illustrations with visible labels, not real completed orders. No fabricated before/after comparisons are used.
-- The enquiry photos remain in memory as local object URLs and are never sent to a server. Contact details, WhatsApp/email integration, actual pricing, and form delivery are not configured.
+Every push to `main` runs `.github/workflows/deploy-pages.yml`: lockfile install, production build, official Pages artifact upload, then deployment with scoped Pages/OIDC permissions. Keep **Settings → Pages → Source** set to **GitHub Actions**. Check the workflow's actual outcome before claiming a new version is live.
 
-## Source and content status
+Site: https://fnfmobilitymy-boop.github.io/Awishfurniture/
 
-The user supplied `https://kilangrepairsofa.com/`. As of this revision, the environment proxy still denies that host with 403 on CONNECT. Official company spelling, complete service list, contacts, and real case media have not been read or verified. The display name is derived from the domain and identified as provisional in the demo footer. Enquiry categories describe customer problems rather than guaranteeing every repair is available. Do not invent service coverage, warranties, prices, or order counts.
+`npm run build` writes the normal static site to `dist/`. Photographs and fonts are separate cacheable files, and lower-page imagery loads lazily. `npm run pages` also refreshes `docs/`, retained as an optional branch-publishing alternative. The active Actions deployment uses `dist/`.
 
-The user will supply downloaded photos and videos later. `scripts/import-legacy-site.py` is also available for source collection if website access becomes active. See `source-materials/README.md` for provenance and review rules.
+`npm run demo` writes a standalone `demo/global-mars-demo.html` with embedded assets. The normal browser may open that HTML locally; the managed browser blocks file URLs, so tests validate it over HTTP with all subresource requests blocked. `node scripts/record-demo.mjs` records a walkthrough to `demo/global-mars-walkthrough.mp4`.
 
-## GitHub Pages deployment
+## Identity, contacts and languages
 
-The repository uses `.github/workflows/deploy-pages.yml` to build and publish the website on every push to `main`. In **Settings → Pages → Build and deployment**, keep the source set to **GitHub Actions**. No template selection or extra token is required. The workflow installs from the lockfile with Node.js 24, builds `dist/`, uploads the official Pages artifact, and deploys it using a job-scoped Pages/OIDC token.
+- `src/content.js`: GLOBAL MARS, the supplied Rawang address, `globalmars.sb@gmail.com`, phone `010 200 7153`, Google Maps search and WhatsApp destination `60102007153`.
+- `src/i18n.js`: every translatable UI string in `ms`, `en` and `zh`, including navigation, projects, FAQs, form validation, accessibility labels and prepared WhatsApp messages. Language choice is stored locally; `<html lang>`, page title and description update on switching.
+- `src/assets/global-mars-logo.webp`: a transparent web derivative prepared from the logo supplied in chat. Colours and the sofa emblem remain recognizable. It is shown on an ivory brand panel for legibility over photography.
+- TikTok, Instagram, Facebook and YouTube icons are present. Account URLs have not been supplied. The buttons display a translated notice instead of linking to an invented account. Replace these with verified account links when available.
 
-Check **Actions → Deploy demo to GitHub Pages** for the actual build and deployment outcome. After deployment succeeds, the project URL is `https://fnfmobilitymy-boop.github.io/Awishfurniture/`. A committed workflow alone does not establish a successful live deployment.
+## Project media and provenance
 
-`base: './'` keeps asset URLs valid under the repository subpath. The previously generated `docs/` files remain as a branch-publishing alternative, but the selected Actions workflow builds directly from source and publishes `dist/`. No external contact integration is configured.
+The client uploaded 45 photos in `iloveimg-compressed.zip`. Twelve visually distinct before/after project composites are selected in `src/cases.js`. They are copied byte-for-byte, uncropped and unretouched; their original captions and before/after pairings are preserved. `source-materials/global-mars-selected-photos.json` records source names, dimensions and SHA-256 hashes. Original uploads are retained outside the checkout at `/workspace/source-assets/global-mars-photos/`.
+
+`CaseShowcase.jsx` uses those originals once each: the first six form a scroll-expanded card fan (a horizontal scroll sequence on mobile), and the others form a grid. Filtering never duplicates an item. The lightbox shows the corresponding original, with keyboard navigation. The latest uploaded reference MP4 informs the motion direction; it is not embedded as a company project video.
+
+Room/craft imagery and the four sector illustrations are distinct generated visuals, labeled as illustrations rather than completed commercial projects. No photographic asset is repeated across main page sections. `WaterImage.jsx` applies gentle pointer/scroll refraction only to illustrative photography, leaving original project comparisons and UI text stable. Reduced-motion and no-WebGL fallbacks preserve readable static imagery.
+
+To add a company-owned opening film, place a web-optimized `hero.mp4` or `hero.webm` in `src/assets/`. It will be detected automatically. Do not use a recorded reference website as original company footage.
+
+## Enquiries
+
+The form prepares a WhatsApp message. The visitor explicitly opens WhatsApp and confirms sending there; no message is sent automatically. Selected photos stay in browser memory for local preview and must be attached separately in WhatsApp. The footer and floating WhatsApp button use the actual user-supplied contact number. No database, image upload API, email delivery or tracking service is configured.

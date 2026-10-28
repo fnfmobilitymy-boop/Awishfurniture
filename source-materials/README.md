@@ -30,3 +30,9 @@ This uses the inherited HTTPS proxy and TLS verification, reads public pages on 
 Images collected from a website are candidates, not proof of successful orders. Review the surrounding source text before labeling an image as a completed project. Separate logos, icons, stock images, banners, workshop photos, and evidence-backed case images. Only present before/after pairs where source evidence identifies the same job. Keep before and after visible and accurately labeled; never fabricate a repaired result.
 
 Keep originals untouched. Record selected originals and their page provenance in the manifest. Create display derivatives separately and preserve furniture condition, color, and material. Any retouching beyond simple export/size preparation must be reviewed against the original. No gallery image has been processed or published yet.
+
+## Latest user-supplied material
+
+The user subsequently supplied the GLOBAL MARS logo, confirmed the Rawang address and contact details, and uploaded `iloveimg-compressed.zip` containing 45 images plus `IMG_6094.MP4` as a motion reference. These direct user sources are authoritative for the current revision; source-site access is no longer a prerequisite for the supplied identity/contact/media work.
+
+Twelve distinct, intact before/after composite photographs have been selected and copied without pixel edits. See `global-mars-selected-photos.json` for hashes and exact source names. The reference video is used for card/fan motion, not represented as company footage. Hotel, restaurant and office service scenes remain visibly labeled illustrations, not evidence of completed commercial contracts. Social account links remain unknown.

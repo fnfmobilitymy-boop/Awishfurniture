@@ -43,7 +43,7 @@ export function furniture(kind){
  }
  return g;
 }
-export default function Scene({kind='sofa',interactive=false,progressRef,small=false}){
+export default function Scene({kind='sofa',interactive=false,progressRef,small=false,label}){
  const ref=useRef();
  useEffect(()=>{
   const el=ref.current;let renderer;
@@ -63,5 +63,5 @@ export default function Scene({kind='sofa',interactive=false,progressRef,small=f
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(!small&&!reduce)model.scale.setScalar(.8);let id;const render=t=>{id=requestAnimationFrame(render);if(!visible)return;target=rotation+(progressRef?progressRef.current*Math.PI*1.6:0);model.rotation.y+=(target-model.rotation.y)*.065;model.scale.setScalar(THREE.MathUtils.lerp(model.scale.x,1,.055));if(!small&&!reduce)model.position.y=Math.sin(t*.0007)*.035;renderer.render(scene,camera);};id=requestAnimationFrame(render);
   return()=>{cancelAnimationFrame(id);ro.disconnect();io.disconnect();el.removeEventListener('pointerdown',down);el.removeEventListener('pointermove',move);el.removeEventListener('pointerup',up);el.removeEventListener('pointercancel',up);scene.traverse(o=>{o.geometry?.dispose();});renderer.dispose();renderer.domElement.remove();};
  },[kind,interactive,small]);
- return <div className={`three-scene ${interactive?'interactive':''}`} ref={ref} role="img" aria-label={`${kind} 家具三维展示${interactive?'，可拖动旋转':''}`}/>;
+ return <div className={`three-scene ${interactive?'interactive':''}`} ref={ref} role="img" aria-label={label||`${kind} 家具三维展示${interactive?'，可拖动旋转':''}`}/>;
 }
