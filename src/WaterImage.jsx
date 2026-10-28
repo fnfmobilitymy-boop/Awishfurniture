@@ -19,16 +19,18 @@ void main(){
  for(int i=0;i<6;i++){
   vec4 ripple=uRipples[i];
   float age=uTime-ripple.z;
-  if(age>=0.&&age<2.8){
+  if(age>=0.&&age<1.8){
    vec2 delta=(uv-ripple.xy)*aspect;
    float distance=length(delta);
-   float front=distance-age*.32;
-   float ring=sin(front*60.)*exp(-front*front*100.)*exp(-age*1.5);
-   offset+=normalize(delta+vec2(.0001))*ring*.011*ripple.w/aspect;
+   float front=distance-age*.25;
+   float ring=sin(front*42.)*exp(-front*front*110.)*exp(-age*2.8);
+   offset+=normalize(delta+vec2(.0001))*ring*.003*ripple.w/aspect;
   }
  }
- offset.x+=sin(uv.y*13.+uTime*2.4)*uScroll*.005;
- offset.y+=sin(uv.x*10.-uTime*2.)*uScroll*.003;
+ offset.x+=sin(uv.y*13.+uTime*2.4)*uScroll*.0007;
+ offset.y+=sin(uv.x*10.-uTime*2.)*uScroll*.0004;
+ // Keep even overlapping ripples within a subtle 0.2% texture displacement.
+ offset=clamp(offset,vec2(-.002),vec2(.002));
  vec2 cover=vec2(1.);
  float screenRatio=uSize.x/uSize.y;
  float imageRatio=uImage.x/uImage.y;
@@ -49,8 +51,8 @@ export default function WaterImage({src,alt,className='',loading='lazy',fetchPri
   let pointer={x:.5,y:.5};
   const resize=()=>{if(!renderer)return;const {width,height}=el.getBoundingClientRect();if(!width||!height)return;renderer.setSize(width,height,false);material.uniforms.uSize.value.set(width,height)};
   const addRipple=(x,y,strength=1)=>{ripples[next].set(x,y,(performance.now()-start)/1000,strength);next=(next+1)%6;el.dataset.rippleCount=String(Number(el.dataset.rippleCount||0)+1)};
-  const move=e=>{const now=performance.now();const r=el.getBoundingClientRect();if(!visible||e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)return;pointer={x:(e.clientX-r.left)/r.width,y:1-(e.clientY-r.top)/r.height};if(now-lastPointer>65){addRipple(pointer.x,pointer.y,.85);lastPointer=now}};
-  const wheel=()=>{const now=performance.now();if(visible&&now-lastWheel>140){addRipple(pointer.x,pointer.y,.55);lastWheel=now}};
+  const move=e=>{const now=performance.now();const r=el.getBoundingClientRect();if(!visible||e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)return;pointer={x:(e.clientX-r.left)/r.width,y:1-(e.clientY-r.top)/r.height};if(now-lastPointer>120){addRipple(pointer.x,pointer.y,.55);lastPointer=now}};
+  const wheel=()=>{const now=performance.now();if(visible&&now-lastWheel>320){addRipple(pointer.x,pointer.y,.18);lastWheel=now}};
   const render=()=>{frame=requestAnimationFrame(render);if(!visible||document.hidden||!material)return;const change=Math.min(1,Math.abs(window.scrollY-lastScroll)/38);lastScroll=window.scrollY;scrollEnergy=scrollEnergy*.9+change*.1;material.uniforms.uTime.value=(performance.now()-start)/1000;material.uniforms.uScroll.value=scrollEnergy;renderer.render(scene,camera)};
   const initialize=()=>{
    if(initialized||disposed)return;initialized=true;

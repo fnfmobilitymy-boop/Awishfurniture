@@ -24,6 +24,10 @@ Site: https://fnfmobilitymy-boop.github.io/Awishfurniture/
 
 `npm run demo` writes a standalone `demo/global-mars-demo.html` with embedded assets. The normal browser may open that HTML locally; the managed browser blocks file URLs, so tests validate it over HTTP with all subresource requests blocked. `node scripts/record-demo.mjs` records a walkthrough to `demo/global-mars-walkthrough.mp4`.
 
+## Typography and motion
+
+Titles use the locally bundled Anton display font, chosen to match the supplied heavy condensed reference. Chinese titles use a heavy CJK system-font fallback. Body copy remains in DM Sans for legibility. Water refraction is intentionally restrained: low amplitude, less frequent impulses, faster damping, and a hard displacement cap to avoid exaggerated distortion.
+
 ## Identity, contacts and languages
 
 - `src/content.js`: GLOBAL MARS, the supplied Rawang address, `globalmars.sb@gmail.com`, phone `010 200 7153`, Google Maps search and WhatsApp destination `60102007153`.
