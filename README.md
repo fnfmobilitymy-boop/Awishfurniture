@@ -36,15 +36,8 @@ The user will supply downloaded photos and videos later. `scripts/import-legacy-
 
 ## GitHub Pages deployment
 
-The generated static site is committed in `docs/`. On GitHub, open **Settings → Pages → Build and deployment**, choose **Deploy from a branch**, and select **main** and **/docs**, then **Save**. GitHub's Pages build publishes the static files without needing an API key in the repository.
+The repository uses `.github/workflows/deploy-pages.yml` to build and publish the website on every push to `main`. In **Settings → Pages → Build and deployment**, keep the source set to **GitHub Actions**. No template selection or extra token is required. The workflow installs from the lockfile with Node.js 24, builds `dist/`, uploads the official Pages artifact, and deploys it using a job-scoped Pages/OIDC token.
 
-After GitHub reports a successful deployment, the expected project URL is `https://fnfmobilitymy-boop.github.io/Awishfurniture/`. This is an expected address, not a claim that Pages has already been enabled or the public site verified.
+Check **Actions → Deploy demo to GitHub Pages** for the actual build and deployment outcome. After deployment succeeds, the project URL is `https://fnfmobilitymy-boop.github.io/Awishfurniture/`. A committed workflow alone does not establish a successful live deployment.
 
-After a source change, regenerate the published files before committing:
-
-```sh
-npm ci --no-audit --no-fund
-npm run pages
-```
-
-`base: './'` keeps asset URLs valid under the repository subpath. `docs/.nojekyll` enables direct static publishing. Never place secrets in the frontend or deployment folder. No external contact integration is configured.
+`base: './'` keeps asset URLs valid under the repository subpath. The previously generated `docs/` files remain as a branch-publishing alternative, but the selected Actions workflow builds directly from source and publishes `dist/`. No external contact integration is configured.
