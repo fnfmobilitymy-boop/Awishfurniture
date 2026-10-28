@@ -31,7 +31,7 @@ Titles use the locally bundled Anton display font, chosen to match the supplied 
 ## Identity, contacts and languages
 
 - `src/content.js`: GLOBAL MARS, the supplied Rawang address, `globalmars.sb@gmail.com`, phone `010 200 7153`, Google Maps search and WhatsApp destination `60102007153`.
-- `src/i18n.js`: every translatable UI string in `ms`, `en` and `zh`, including navigation, projects, FAQs, form validation, accessibility labels and prepared WhatsApp messages. Language choice is stored locally; `<html lang>`, page title and description update on switching.
+- `src/i18n.js`: every translatable UI string in `ms`, `en` and `zh`, including navigation, projects, FAQs, form validation, accessibility labels and prepared WhatsApp messages. New visitors start in English. Language choice is stored locally, with an optional explicit `?lang=en`, `?lang=ms` or `?lang=zh` override; `<html lang>`, page title and description update on switching.
 - `src/assets/global-mars-logo.webp`: a transparent web derivative prepared from the logo supplied in chat. Colours and the sofa emblem remain recognizable. It is shown on an ivory brand panel for legibility over photography.
 - TikTok, Instagram, Facebook and YouTube icons are present. Account URLs have not been supplied. The buttons display a translated notice instead of linking to an invented account. Replace these with verified account links when available.
 
@@ -48,3 +48,9 @@ To add a company-owned opening film, place a web-optimized `hero.mp4` or `hero.w
 ## Enquiries
 
 The form prepares a WhatsApp message. The visitor explicitly opens WhatsApp and confirms sending there; no message is sent automatically. Selected photos stay in browser memory for local preview and must be attached separately in WhatsApp. The footer and floating WhatsApp button use the actual user-supplied contact number. No database, image upload API, email delivery or tracking service is configured.
+
+## Link sharing
+
+The static HTML includes an English title and description, canonical URL, Open Graph metadata and a Twitter large-image card. `public/social-preview-en.jpg` is a 1200 × 630 English homepage export with the logo and imagery; its URL is absolute and public so no JavaScript is needed to discover or fetch it. Share metadata stays English while the on-page language can change.
+
+To regenerate the share cover after a visual change, run `npm run build && node scripts/create-social-preview.mjs`, then build again to include the refreshed JPEG. Messaging platforms may cache an existing card; an already-sent preview is not under the site's control.

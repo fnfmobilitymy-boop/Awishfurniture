@@ -35,7 +35,7 @@ function Lines({items}){return items.map(line=><span key={line}>{line}<br/></spa
 function SocialLinks({t,onSelect}){return <div className="social-links" aria-label={t.social}>{['TikTok','Instagram','Facebook','YouTube'].map(name=><button key={name} type="button" onClick={()=>onSelect(name)} aria-label={`${name} — ${t.socialPending}`} title={name}><SocialIcon name={name}/><span>{name}</span></button>)}</div>}
 function App(){
  const root=useRef(),progress=useRef(0),lenisRef=useRef(),dialogRef=useRef(),uploadsRef=useRef([]),openingPlayed=useRef(false);
- const [lang,setLang]=useState(()=>{try{const saved=localStorage.getItem('global-mars-language');return translations[saved]?saved:'zh'}catch{return 'zh'}});
+ const [lang,setLang]=useState(()=>{try{const requested=new URLSearchParams(location.search).get('lang');if(Object.hasOwn(translations,requested))return requested;const saved=localStorage.getItem('global-mars-language');return Object.hasOwn(translations,saved)?saved:'en'}catch{return 'en'}});
  const t=translations[lang];
  const [ready,setReady]=useState(false),[menu,setMenu]=useState(false),[active,setActive]=useState(0),[filter,setFilter]=useState(-1),[detail,setDetail]=useState(null),[booking,setBooking]=useState(false),[submitted,setSubmitted]=useState(false),[photos,setPhotos]=useState([]),[photoError,setPhotoError]=useState(''),[interest,setInterest]=useState('unsure'),[faq,setFaq]=useState(null),[galleryIndex,setGalleryIndex]=useState(null),[social,setSocial]=useState(''),[summary,setSummary]=useState(null);
  const isModal=menu||detail!==null||booking||galleryIndex!==null;

@@ -14,19 +14,29 @@ console.log('PASS complete trilingual key coverage and 12 unique original before
 const directory=resolve('dist'),prefix='/Awishfurniture';
 const server=createServer(async(req,res)=>{try{let path=decodeURIComponent(new URL(req.url,'http://localhost').pathname);if(!path.startsWith(prefix+'/')){res.writeHead(404).end();return}path=path.slice(prefix.length);const file=resolve(directory,'.'+(path==='/'?'/index.html':path));if(!file.startsWith(directory+'/')){res.writeHead(403).end();return}res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.jpg':'image/jpeg','.webp':'image/webp','.png':'image/png','.woff2':'font/woff2','.woff':'font/woff'})[extname(file)]||'application/octet-stream');res.end(await readFile(file));}catch{res.writeHead(404).end()}});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));const base=`http://127.0.0.1:${server.address().port}${prefix}/`;
+const shareHtml=await (await fetch(base)).text();
+assert.match(shareHtml,/<html lang="en">/);
+for(const tag of ['og:title','og:description','og:image','twitter:card','twitter:image'])assert.ok(shareHtml.includes('"'+tag+'"'),tag+' must be in static HTML');
+const shareTitle=shareHtml.match(/property="og:title" content="([^"]+)"/)[1],shareDescription=shareHtml.match(/property="og:description" content="([^"]+)"/)[1];
+assert.ok(!/[\u3400-\u9fff]/.test(shareTitle+shareDescription));
+assert.ok(shareHtml.includes('content="summary_large_image"'));
+const shareUrl=shareHtml.match(/property="og:image" content="([^"]+)"/)[1];assert.equal(shareUrl,'https://fnfmobilitymy-boop.github.io/Awishfurniture/social-preview-en.jpg');
+const shareResponse=await fetch(base+'social-preview-en.jpg');assert.equal(shareResponse.status,200);assert.equal(shareResponse.headers.get('content-type'),'image/jpeg');const shareBytes=new Uint8Array(await shareResponse.arrayBuffer());assert.equal(shareBytes[0],0xff);assert.equal(shareBytes[1],0xd8);
+console.log('PASS English static sharing metadata, large-image cards and publicly served JPEG preview');
+
 let browser;
 try{
  browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox','--enable-unsafe-swiftshader']});const errors=[];
  const page=await browser.newPage({viewport:{width:1440,height:1000},deviceScaleFactor:1});page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push('HTTP '+r.status()+': '+r.url())});
  await page.goto(base,{waitUntil:'networkidle'});await page.locator('.intro').waitFor({state:'hidden'});await page.waitForTimeout(1800);
- assert.equal(await page.locator('html').getAttribute('lang'),'zh-Hans');assert.match(await page.locator('h1').innerText(),/留下美好记忆/);
+ assert.equal(await page.locator('html').getAttribute('lang'),'en');assert.ok((await page.locator('h1').textContent()).includes(translations.en.heroTitle[0]));
  await page.locator('.hero-photo .water-canvas.ready').waitFor();
  const before=await page.locator('.hero-photo canvas').screenshot();
  await page.mouse.move(800,400);await page.mouse.move(900,450,{steps:8});await page.waitForTimeout(180);
  assert.ok(Number(await page.locator('.hero-photo').getAttribute('data-ripple-count'))>0);
  const after=await page.locator('.hero-photo canvas').screenshot();assert.notDeepEqual(before,after,'Pointer input must produce visible refraction');
- await page.screenshot({path:'/tmp/global-mars-desktop-zh.png'});
- assert.equal(await page.locator('header .brand-image img').getAttribute('alt'),translations.zh.logoAlt);
+ await page.screenshot({path:'/tmp/global-mars-desktop-default-en.png'});
+ assert.equal(await page.locator('header .brand-image img').getAttribute('alt'),translations.en.logoAlt);
  const photos=await page.locator('main img').evaluateAll(images=>images.map(image=>image.src));assert.equal(photos.length,new Set(photos).size,'No repeated photographic assets across main sections');
  assert.equal(await page.locator('.sector-card').count(),4);assert.equal(await page.locator('.real-cases [data-case-id]').count(),12);
  const wa=await page.locator('.whatsapp-float').getAttribute('href');assert.ok(wa.startsWith('https://wa.me/60102007153?text='));
@@ -58,5 +68,7 @@ try{
  await mobile.getByRole('button',{name:ms.sectorCta+': '+ms.sectorNames[1],exact:true}).click();assert.equal(await mobile.locator('select[name="topic"]').inputValue(),'sector1');await mobile.getByLabel(ms.photoInput,{exact:true}).setInputFiles('src/assets/cases/project-01.jpg');assert.equal(await mobile.locator('.upload-previews img').count(),1);await mobile.getByRole('button',{name:/Padam foto/}).click();assert.equal(await mobile.locator('.upload-previews img').count(),0);await mobile.getByRole('button',{name:ms.closeEnquiry,exact:true}).click();
  await mobile.locator('#cases .filters').getByRole('button',{name:/Kerusi makan/}).click();assert.equal(await mobile.locator('.real-cases [data-case-id]').count(),2);assert.ok(await mobile.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await mobile.waitForTimeout(450);await mobile.screenshot({path:'/tmp/global-mars-mobile-cases.png'});console.log('PASS mobile trilingual layout, navigation, hotel project enquiry, photo removal and dining-chair filter');await mobile.close();
  const reduced=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});reduced.on('pageerror',e=>errors.push(e.message));await reduced.goto(base,{waitUntil:'networkidle'});await reduced.locator('.intro').waitFor({state:'hidden'});assert.equal(await reduced.locator('.water-canvas').count(),0);assert.equal(await reduced.locator('.real-cases [data-case-id]').count(),12);console.log('PASS reduced-motion static photography and readable project archive');await reduced.close();
+ const sharedPage=await browser.newPage({reducedMotion:'reduce'});await sharedPage.addInitScript(()=>localStorage.setItem('global-mars-language','zh'));await sharedPage.goto(base+'?lang=en',{waitUntil:'networkidle'});assert.equal(await sharedPage.locator('html').getAttribute('lang'),'en');assert.equal(await sharedPage.locator('meta[property="og:locale"]').getAttribute('content'),'en_MY');await sharedPage.close();
+
  const standalone=await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'});const requests=[];standalone.on('pageerror',e=>errors.push(e.message));standalone.on('request',r=>{if(r.url().startsWith('http')&&r.resourceType()!=='document')requests.push(r.url())});await standalone.route('**/*',route=>route.request().isNavigationRequest()?route.continue():route.abort());await standalone.goto(base+'global-mars-demo.html');await standalone.locator('.intro').waitFor({state:'hidden'});assert.ok(await standalone.locator('.hero-photo img').evaluate(el=>el.complete&&el.naturalWidth>0));await standalone.locator('.language-switch').getByRole('button',{name:'BM',exact:true}).click();assert.equal(await standalone.locator('html').getAttribute('lang'),'ms');assert.deepEqual(requests,[]);assert.deepEqual(errors,[]);console.log('PASS offline bundle, trilingual switch, no external resource requests, no browser runtime errors');
 }finally{await browser?.close();server.close()}
