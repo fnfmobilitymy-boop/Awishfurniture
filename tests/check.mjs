@@ -40,13 +40,11 @@ try{
  const water=page.locator('.sector-card .water-image').first();await water.scrollIntoViewIfNeeded();await water.locator('.water-canvas.ready').waitFor();const before=await water.locator('canvas').screenshot();const box=await water.boundingBox();await page.mouse.move(box.x+box.width*.4,box.y+box.height*.4);await page.mouse.move(box.x+box.width*.6,box.y+box.height*.6,{steps:8});await page.waitForTimeout(180);const after=await water.locator('canvas').screenshot();assert.notDeepEqual(before,after,'Pointer input must produce visible refraction');await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
  console.log('PASS supplied sofa frames advance, reverse and pause with scroll');
  await page.screenshot({path:'/tmp/global-mars-desktop-default-en.png'});
- assert.equal(await page.locator('header .brand-image img').getAttribute('alt'),translations.en.logoAlt);
+ assert.equal(await page.locator('header .brand-name').textContent(),'kenny');assert.equal(await page.locator('.brand-image img').count(),0);
  const photos=await page.locator('main img').evaluateAll(images=>images.map(image=>image.src));assert.equal(photos.length,new Set(photos).size,'No repeated photographic assets across main sections');
  assert.equal(await page.locator('.sector-card').count(),4);assert.equal(await page.locator('.real-cases [data-case-id]').count(),12);
- const wa=await page.locator('.whatsapp-float').getAttribute('href');assert.ok(wa.startsWith('https://wa.me/60102007153?text='));
- assert.equal(await page.locator('.contact-line[href^="mailto:"]').getAttribute('href'),'mailto:globalmars.sb@gmail.com');
- assert.equal(await page.locator('.contact-line[href^="tel:"]').getAttribute('href'),'tel:+60102007153');
- assert.ok(decodeURIComponent(await page.locator('.map-card').getAttribute('href')).includes('No 18, Jalan BJ6'));
+ assert.equal(await page.locator('a[href^="tel:"],a[href^="mailto:"],a[href*="wa.me"],a[href*="google.com/maps"],.map-card,.whatsapp-float').count(),0);
+ assert.ok(!(await page.locator('body').innerText()).includes('GLOBAL MARS'));
  for(const language of ['en','ms','zh']){
   const l=languages.find(item=>item.id===language),t=translations[language];await page.locator('.language-switch').getByRole('button',{name:l.label,exact:true}).click();assert.equal(await page.locator('html').getAttribute('lang'),l.html);assert.ok((await page.locator('h1').textContent()).includes(t.heroTitle[0]));assert.deepEqual(await page.locator('.header nav a').allTextContents(),t.nav.map((v,i)=>v+(i===0?' ↗':'')));
  }
@@ -61,10 +59,10 @@ try{
  await page.locator('#services .filters').getByRole('button',{name:/Surface/}).click();assert.equal(await page.locator('.topic-card').count(),1);await page.getByRole('button',{name:en.prepare,exact:true}).click();await page.getByRole('button',{name:en.describeIssue,exact:true}).click();assert.equal(await page.locator('select[name="topic"]').inputValue(),'topic0');
  await page.getByRole('textbox',{name:en.name,exact:true}).fill('Demo User');await page.getByRole('textbox',{name:en.phone,exact:true}).fill('0123456789');await page.getByRole('textbox',{name:en.message,exact:true}).fill('Sofa upholstery needs attention.');
  await page.getByLabel(en.photoInput,{exact:true}).setInputFiles('src/assets/cases/project-01.jpg');assert.equal(await page.locator('.upload-previews img').count(),1);await page.getByRole('button',{name:en.submit,exact:true}).click();await page.getByText(en.success,{exact:true}).waitFor();
- const prepared=decodeURIComponent(await page.getByRole('link',{name:en.send,exact:true}).getAttribute('href'));assert.ok(prepared.startsWith('https://wa.me/60102007153?text='));assert.ok(prepared.includes('Demo User')&&prepared.includes('Sofa upholstery needs attention.'));
+ assert.equal(await page.locator('.send-whatsapp').count(),0);await page.getByText(en.successText,{exact:true}).waitFor();
  await page.getByRole('button',{name:en.continue,exact:true}).click();await page.locator('#contact .social-links').getByRole('button',{name:/TikTok/}).click();await page.getByText(en.socialPending,{exact:true}).waitFor();await page.getByRole('button',{name:en.closeSocial,exact:true}).click();
  await page.evaluate(()=>{const el=document.querySelector('#contact');window.scrollTo({top:el.offsetTop-80,behavior:'instant'})});await page.waitForTimeout(1000);await page.screenshot({path:'/tmp/global-mars-contact.png'});
- console.log('PASS case filtering, original lightbox, keyboard navigation, scroll card spread, repair guidance, local photos, prepared WhatsApp enquiry and honest social placeholders');await page.close();
+ console.log('PASS case filtering, original lightbox, keyboard navigation, scroll card spread, repair guidance, local photos, local enquiry without sending and honest social placeholders');await page.close();
  const mobile=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1,isMobile:true,hasTouch:true});mobile.on('pageerror',e=>errors.push(e.message));await mobile.goto(base,{waitUntil:'networkidle'});await mobile.locator('.intro').waitFor({state:'hidden'});await mobile.waitForTimeout(1200);
  for(const language of ['zh','en','ms']){const l=languages.find(item=>item.id===language);await mobile.locator('.language-switch').getByRole('button',{name:l.label,exact:true}).click();assert.equal(await mobile.locator('html').getAttribute('lang'),l.html);assert.ok(await mobile.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),language+' mobile overflow')}
  await mobile.waitForTimeout(1200);await mobile.screenshot({path:'/tmp/global-mars-mobile-ms.png'});const ms=translations.ms;

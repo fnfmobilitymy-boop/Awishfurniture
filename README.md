@@ -58,3 +58,7 @@ To regenerate the share cover after a visual change, run `npm run build && node 
 ## Scroll-controlled sofa film
 
 The Hero uses the client-provided `kling_20261028_VIDEO_Create_an__4934_0.mp4` as a 121-frame, 12 fps WebP sequence in `src/assets/sofa-motion/`. `ScrollSofa.jsx` draws frames according to scroll progress, supports reverse scrolling, bounds concurrent downloads to four, pauses rendering off screen, and uses the first still for reduced motion and loading fallback. The kitchen webpage recording is only a motion reference and is not published. The film is labeled a visual concept, not an actual completed restoration. All other page sections retain the restored design.
+
+## Current identity update
+
+The visible company name is `kenny`, displayed as plain text. The previous logo, company telephone/email links, WhatsApp destination and Google Maps links/cards have been removed. Enquiries stay on the current page with an explicit unsent notice until new contact details are supplied. The English social preview was regenerated without the previous logo.
